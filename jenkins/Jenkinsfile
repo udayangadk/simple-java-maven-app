@@ -18,7 +18,7 @@ pipeline {
         sh 'mvn -B -DskipTests clean package'
       }
     }
-    stage('Deliver') {
+    stage('Test Jar File') {
       agent {
           docker{
               image 'maven:3-alpine'
@@ -32,7 +32,7 @@ pipeline {
         }
       }
     }
-    stage('Building image') {
+    stage('Building Image') {
       agent {
           docker{
               image 'docker'
@@ -46,7 +46,7 @@ pipeline {
           }
         }
     }
-    stage('Deploy Image') {
+    stage('Pushing Image To Repo') {
       agent {
           docker{
               image 'docker'
@@ -60,6 +60,20 @@ pipeline {
           }
         }
       }
+    }
+    stage('Deploy'){
+        parallel{
+            stage('Deploying In Staging Env.') {
+                steps {
+                    sh "echo 'this is Staging'"
+                }
+            }
+            stage('Deploying In Prod Env.') {
+                steps {
+                    sh "echo 'this is Prod'"
+                }
+            }
+        }
     }
   }
 }

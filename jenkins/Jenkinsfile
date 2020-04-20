@@ -36,7 +36,6 @@ pipeline {
           docker{
               image 'docker'
               args '-v /root/.m2:/root/.m2'
-              args '-v /var/run/docker.sock:/var/run/docker.sock' 
           }  
       }
         steps{
@@ -49,7 +48,6 @@ pipeline {
       agent {
           docker{
               image 'docker'
-              args '-v /var/run/docker.sock:/var/run/docker.sock' 
           }  
       }
       steps{

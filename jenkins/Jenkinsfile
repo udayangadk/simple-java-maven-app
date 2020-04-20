@@ -64,11 +64,13 @@ pipeline {
     stage('Deploy'){
         parallel{
             stage('Deploying In Staging Env.') {
+                agent{docker 'alpine'}
                 steps {
                     sh "echo 'this is Staging'"
                 }
             }
             stage('Deploying In Prod Env.') {
+                agent{docker 'alpine'}
                 steps {
                     sh "echo 'this is Prod'"
                 }

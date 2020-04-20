@@ -32,17 +32,17 @@ pipeline {
             }
         }
         stage('Building image') {
-            steps{
-                scripts{
-                    dockerImage = docker.build registry + ":$BUILD_NUMBER"
+           steps{
+              scripts{
+                 dockerImage = docker.build registry + ":$BUILD_NUMBER"
                 }
             }
         }
         stage('Deploy Image'){
-            steps{
-                scripts{
-                    docker.withRegistry( '', registryCredential ) {
-                        dockerImage.push()
+           steps{
+              scripts{
+                 docker.withRegistry( '', registryCredential ) {
+                    dockerImage.push()
                     }
                 }
             }

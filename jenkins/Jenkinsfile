@@ -1,6 +1,6 @@
 pipeline {
   environment {
-    registry = "hub.docker.com/udayangami"
+    registry = "udayangami/myimage"
     registryCredential = 'dockerhub'
     dockerImage = ''
   }

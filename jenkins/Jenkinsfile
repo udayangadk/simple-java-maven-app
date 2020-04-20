@@ -78,13 +78,16 @@ pipeline {
             stage('Deploying In Staging Env.') {
                 agent{docker 'alpine'}
                 steps {
+                    timeout(time:60, unit: "SECONDS") {
+                        input message: 'Approve Deploy in Prod?', ok: 'Yes'
+                    }
                     sh "echo 'This is Staging'"
                 }
             }
             stage('Deploying In Prod Env.') {
                 agent{docker 'alpine'}
                 steps {
-                    timeout(time:10, unit: "SECONDS") {
+                    timeout(time:120, unit: "SECONDS") {
                         input message: 'Approve Deploy in Prod?', ok: 'Yes'
                     }
                     sh "echo 'This is Prod'"

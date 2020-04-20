@@ -2,7 +2,7 @@ pipeline {
     environment {
         registry = "hub.docker.com/udayangami"
         registryCredential = 'docker_hub'
-        dockerImage = ''
+        Image = ''
     }
     agent {
         docker {
@@ -24,15 +24,15 @@ pipeline {
         stage('Building image') {
             steps{
                 scripts{
-                    dockerImage = docker.build registry + ":$BUILD_NUMBER"
+                    Image = docker.build registry + ":$BUILD_NUMBER"
                 }
             }
         }
         stage('Deploy Image'){
             steps{
                 scripts{
-                    docker.withRegistry( '', registryCredential ) {
-                        dockerImage.push()
+                    withRegistry( '', registryCredential ) {
+                        push()
                     }
                 }
             }

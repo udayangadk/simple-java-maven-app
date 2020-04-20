@@ -46,7 +46,7 @@ pipeline {
           }
         }
     }
-    stage('Pushing Image To Repo') {
+    stage('Pushing Image') {
       agent {
           docker{
               image 'docker'
@@ -63,19 +63,19 @@ pipeline {
     }
     stage('Deploy'){
         parallel{
-            stage('Deploying In Dev Env.') {
+            stage('In Dev Env.') {
                 agent{docker 'alpine'}
                 steps {
                     sh "echo 'This is Dev'"
                 }
             }
-            stage('Deploying In QA Env.') {
+            stage('In QA Env.') {
                 agent{docker 'alpine'}
                 steps {
                     sh "echo 'This is QA'"
                 }
             }
-            stage('Deploying In Staging Env.') {
+            stage('In Staging Env.') {
                 agent{docker 'alpine'}
                 steps {
                     timeout(time:60, unit: "SECONDS") {
@@ -84,7 +84,7 @@ pipeline {
                     sh "echo 'This is Staging'"
                 }
             }
-            stage('Deploying In Prod Env.') {
+            stage('In Prod Env.') {
                 agent{docker 'alpine'}
                 steps {
                     timeout(time:120, unit: "SECONDS") {
